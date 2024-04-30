@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: Student Birthday Email Service
+  description: An Express server for fetching email addresses of students with birthdays today
+  version: 1.0.0
+servers:
+  - url: http://localhost:5001
+paths:
+  /students/birthdays:
+    get:
+      summary: Retrieve email addresses of students with birthdays today
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: email
+        '500':
+          description: Internal Server Error
+      parameters:
+        - in: query
+          name: date
+          schema:
+            type: string
+            format: date
+          description: The date to fetch birthdays in MM-DD format (defaults to today's date if not provided)
+      description: |
+        Fetches the email addresses of students with birthdays today.
+        If no date is provided, it fetches birthdays for the current date.
